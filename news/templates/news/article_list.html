@@ -1,0 +1,29 @@
+{% load static %}
+<section class="panel">
+    <h2>{% block panel_title %}Moto News{% endblock %}</h2>
+
+    {% if articles %}
+        <ul>
+            {% for article in articles %}
+                <li>
+                    {% if article.image %}
+                        <a href="{% url 'article_detail' article.slug %}">
+                            <img src="{{ article.image.url }}" alt="{{ article.title }}">
+                        </a>
+                    {% endif %}
+                    <h3>
+                        <a href="{% url 'article_detail' article.slug %}">
+                            {{ article.title }}
+                         </a>
+                    </h3>
+                    <p>
+                        {{ article.content|truncatewords_html:70|safe }}
+                        <p style="text-align: right;"><a href="{% url 'article_detail' article.slug %}">Lees meer</a></p>
+                    </p>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No articles yet.</p>
+    {% endif %}
+</section>

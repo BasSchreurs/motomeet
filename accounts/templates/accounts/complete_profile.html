@@ -1,0 +1,74 @@
+{% extends "core/base.html" %}
+
+{% block title %}Profiel aanvullen{% endblock %}
+
+{% block content %}
+<section class="login-panel">
+    <h1>Profiel aanvullen</h1>
+    <p>Vul je gegevens in om je profiel te voltooien.</p>
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <!-- Basisgegevens -->
+        <h3>Basisgegevens</h3><br>
+
+        <div class="form-field">
+            {% with field=form.profiel_foto %}
+                {{ field.label_tag }}
+                {% if form.instance.profiel_foto %}
+                    <img src="{{ form.instance.profiel_foto.url }}" alt="Huidige foto"
+                        style="width:300px; height:auto; object-fit:cover; border-radius:5px; border:3px solid #888; display:block; margin:0 auto 1rem auto; box-shadow:0 3px 10px rgba(0,0,0,0.2);">
+                {% endif %}
+                {{ field }}
+                <small style="color:#888; font-size:0.85rem; margin-top:4px;">Maximaal 2MB</small>
+                {% if field.errors %}
+                    <p class="form-error">{{ field.errors|join:", " }}</p>
+                {% endif %}
+            {% endwith %}
+        </div>
+
+        {% for field in form %}
+            {% if field.name == "geboortedatum" or field.name == "woonplaats" or field.name == "motor_model" %}
+            <div class="form-field">
+                {{ field.label_tag }}
+                {{ field }}
+                {% if field.errors %}
+                    <p class="form-error">{{ field.errors|join:", " }}</p>
+                {% endif %}
+            </div>
+            {% endif %}
+        {% endfor %}
+
+        <!-- Sociale Media -->
+        <h3><br>Social Media <span style="font-size:0.8rem; font-weight:400; text-transform:none; letter-spacing:0;">(optioneel)</span></h3><br>
+        {% for field in form %}
+            {% if field.name == "instagram" or field.name == "facebook" or field.name == "whatsapp" or field.name == "youtube" or field.name == "tiktok" %}
+            <div class="form-field">
+                {{ field.label_tag }}
+                {{ field }}
+                {% if field.errors %}
+                    <p class="form-error">{{ field.errors|join:", " }}</p>
+                {% endif %}
+            </div>
+            {% endif %}
+        {% endfor %}
+
+        <!-- Favoriete Routes -->
+        <h3><br>Favoriete Routes <span style="font-size:0.8rem; font-weight:400; text-transform:none; letter-spacing:0;">(optioneel)</span></h3><br>
+        {% for field in form %}
+            {% if field.name == "route_1_naam" or field.name == "route_1" or field.name == "route_2_naam" or field.name == "route_2" or field.name == "route_3_naam" or field.name == "route_3" or field.name == "route_4_naam" or field.name == "route_4" or field.name == "route_5_naam" or field.name == "route_5" %}
+            <div class="form-field">
+                {{ field.label_tag }}
+                {{ field }}
+                {% if field.errors %}
+                    <p class="form-error">{{ field.errors|join:", " }}</p>
+                {% endif %}
+            </div>
+            {% endif %}
+        {% endfor %}
+
+        <button type="submit" class="login-button">Opslaan</button>
+    </form>
+</section>
+{% endblock %}

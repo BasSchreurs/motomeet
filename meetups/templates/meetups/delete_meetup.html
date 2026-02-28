@@ -1,0 +1,17 @@
+{% extends "core/base.html" %}
+{% block title %}Meetup Verwijderen{% endblock %}
+
+{% block content %}
+<section class="panel meetup-detail">
+    <a href="{% url 'meetup_detail' meetup.slug %}" class="back-button">&larr; Terug naar Meetup</a>
+
+    <h1>Meetup Verwijderen</h1>
+
+    <p>Weet u zeker dat je <strong>{{ meetup.title }}</strong> wilt verwijderen? Dit kan niet ongedaan worden gemaakt.</p>
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="signup-button">Ja, verwijderen</button>
+    </form>
+</section>
+{% endblock %}

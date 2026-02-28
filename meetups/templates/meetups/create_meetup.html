@@ -1,0 +1,53 @@
+{% extends "core/base.html" %}
+{% block title %}Meetup Aanmaken{% endblock %}
+
+{% block content %}
+<section class="panel meetup-detail">
+    <a href="{% url 'meetup_list' %}" class="back-button">&larr; Terug naar Meetups</a>
+
+    <h1>Meetup Aanmaken</h1>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% for field in form %}
+        <div class="login-panel" style="max-width: 100%; margin: 0 0 0.0rem 0; padding: 0.0rem; box-shadow: none; border: none;">
+            <div class="form-field {% if field.name == 'invited_friends' %}friend-selector{% endif %}">
+                {{ field.label_tag }}
+                {{ field }}
+                {% if field.name == "image" %}
+                    <small style="color:#888; font-size:0.85rem; margin-top:4px;">Maximaal 2MB</small>
+                {% endif %}
+                {% if field.help_text %}
+                    <p class="form-help" style="font-size: 0.9em; color: #666; margin-top: 5px;">{{ field.help_text }}</p>
+                {% endif %}
+                {% if field.errors %}
+                    <p class="form-error">{{ field.errors }}</p>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+        <button type="submit" class="signup-button">Aanmaken</button>
+    </form>
+</section>
+
+<script>
+    // Show/hide friend selector based on public/private selection
+    const publicCheckbox = document.querySelector('input[name="is_public"]');
+    const friendSelector = document.querySelector('.friend-selector');
+    
+    function toggleFriendSelector() {
+        if (publicCheckbox && friendSelector) {
+            if (publicCheckbox.checked) {
+                friendSelector.style.display = 'none';
+            } else {
+                friendSelector.style.display = 'block';
+            }
+        }
+    }
+    
+    if (publicCheckbox) {
+        publicCheckbox.addEventListener('change', toggleFriendSelector);
+        toggleFriendSelector(); // Run on page load
+    }
+</script>
+{% endblock %}

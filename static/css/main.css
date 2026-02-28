@@ -1,0 +1,1306 @@
+/* ─── Google Font Import ─────────────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700&family=Barlow:wght@400;500&display=swap');
+
+/* ─── Global Reset & Base ────────────────────────────────────────────────── */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #d8d8d8;
+    background-image:
+        repeating-linear-gradient(
+            90deg,
+            transparent,
+            transparent 40px,
+            rgba(0,0,0,0.03) 40px,
+            rgba(0,0,0,0.03) 41px
+        ),
+        repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 40px,
+            rgba(0,0,0,0.03) 40px,
+            rgba(0,0,0,0.03) 41px
+        );
+    color: #1a1a1a;
+    font-family: 'Barlow', sans-serif;
+    font-weight: 400;
+    min-height: 100vh;
+}
+
+/* ─── Navbar ─────────────────────────────────────────────────────────────── */
+.site-nav {
+    position: relative;
+    background-color: #2a2a2a;
+    padding: 0 1.5rem;
+    min-height: 55px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.4);
+    border-bottom: 3px solid #888;
+}
+
+.nav-left {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-right {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    right: 1.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.nav-left li, .nav-right li {
+    margin: 0 1.2rem;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    color: #c8c8c8;
+}
+
+.nav-left li a, .nav-right li a {
+    color: #c8c8c8;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.nav-left li a:hover, .nav-right li a:hover {
+    color: #ffffff;
+}
+
+.nav-right a[href*="profile"] {
+    text-decoration: underline;
+}
+
+/* ─── Site Banner ────────────────────────────────────────────────────────── */
+.site-banner {
+    position: relative; /* needed for ::before overlay */
+    width: 100%;
+    background-color: #2a2a2a; /* fallback if image doesn't load */
+    background-size: cover;
+    background-position: center;
+    padding: 2rem 0;
+    border-bottom: 3px solid #888;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.4);
+    margin-bottom: 2rem;
+}
+
+.site-banner::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: inherit; /* copies the background image */
+    filter: grayscale(40%) brightness(90%) contrast(105%);
+    z-index: 0;
+}
+
+.site-banner .site-logo {
+    position: relative;
+    z-index: 1; /* sits above the filtered layer */
+}
+
+/* ─── Site Logo ──────────────────────────────────────────────────────────── */
+.site-logo {
+    display: block;
+    max-width: 200px;
+    width: 100%;
+    margin: 0 auto;
+    filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.25));
+}
+
+/* ─── Site Search ────────────────────────────────────────────────────────── */
+.site-search {
+    max-width: 480px;
+    margin: 0 auto 2rem auto;
+    padding: 0 1.5rem;
+}
+
+.search-bar {
+    display: flex;
+}
+
+.search-input {
+    flex: 1;
+    padding: 0.6rem 1rem;
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.9rem;
+    color: #1a1a1a;
+    background: #fff;
+    border: 1px solid #b8b8b8;
+    border-right: none;
+    border-radius: 2px 0 0 2px;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.search-input:focus {
+    border-color: #555;
+    box-shadow: 0 0 0 3px rgba(0,0,0,0.08);
+}
+
+.search-button {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.6rem 1.2rem;
+    background-color: #2a2a2a;
+    color: #f0f0f0;
+    border: 1px solid #2a2a2a;
+    border-radius: 0 2px 2px 0;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.search-button:hover {
+    background-color: #fff;
+    color: #2a2a2a;
+}
+
+.search-filters {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.6rem;
+    flex-wrap: wrap;
+    position: relative;
+}
+
+.search-filter {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #555;
+    cursor: pointer;
+}
+
+.search-filter input[type="radio"] {
+    accent-color: #2a2a2a;
+    cursor: pointer;
+}
+
+.search-filter:has(input:checked) {
+    color: #1a1a1a;
+}
+
+.search-date {
+    display: none;
+}
+
+.search-date.visible {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 0.3rem;
+    background: #fff;
+    border: 1px solid #b8b8b8;
+    border-radius: 2px;
+    padding: 0.3rem 0.5rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+    z-index: 10;
+}
+
+.date-input {
+    padding: 0.2rem 0.5rem;
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.8rem;
+    color: #1a1a1a;
+    background: #fff;
+    border: 1px solid #b8b8b8;
+    border-radius: 2px;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.date-input:focus {
+    border-color: #555;
+    box-shadow: 0 0 0 3px rgba(0,0,0,0.08);
+}
+
+/* ─── Main Container ─────────────────────────────────────────────────────── */
+.container {
+    padding: 1.5rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    margin-bottom: 5rem;
+    padding-bottom: 3rem;
+}
+
+/* ─── Front Page Grid ────────────────────────────────────────────────────── */
+.front-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+}
+
+/* ─── Panels ─────────────────────────────────────────────────────────────── */
+.panel {
+    background: #efefef;
+    padding: 0.8rem 1.5rem 1.5rem 1.5rem;
+    border-radius: 2px;
+    border: 1px solid #b8b8b8;
+    border-left: 4px solid #555;
+    box-shadow:
+        0 2px 12px rgba(0, 0, 0, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    position: relative;
+    overflow: visible;
+}
+
+.panel::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 20px 20px 0;
+    border-color: transparent #b8b8b8 transparent transparent;
+}
+
+.panel ul {
+    list-style: none;
+    padding-left: 0;
+    margin-left: 0;
+}
+
+.panel li {
+    border-bottom: 1px solid #d0d0d0;
+    padding-bottom: 1.2rem;
+    margin-bottom: 1.2rem;
+}
+
+.panel li:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.panel h1 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1.2rem;
+    color: #1a1a1a;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.panel h2 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 2rem;
+    font-weight: 600;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    text-align: center;
+    color: #2a2a2a;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border-bottom: 1px solid #aaa;
+    padding-bottom: 0.6rem;
+}
+
+.panel h3 {
+    text-align: center;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #333;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+}
+
+.panel p {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    margin-bottom: 0.8rem;
+    color: #444;
+}
+
+.panel a {
+    color: #3a3a3a;
+    text-decoration: none;
+    font-weight: 500;
+    border-bottom: 1px solid #aaa;
+    transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.panel a:hover {
+    color: #000;
+    border-bottom-color: #333;
+}
+
+a:visited {
+    color: #555;
+}
+
+/* ─── Panel Images ───────────────────────────────────────────────────────── */
+.panel img {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin: 0.8rem auto 1rem auto;
+    border-radius: 2px;
+    border: 1px solid #bbb;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.panel a:hover img {
+    transform: scale(1.02);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+}
+
+/* ─── Front Page List Images ─────────────────────────────────────────────── */
+.front-grid .panel li img {
+    float: left;
+    width: 250px;
+    max-width: 40%;
+    margin: 0.2rem 1rem 0.5rem 0;
+}
+
+/* Clearfix so item borders/padding respect the float */
+.front-grid .panel li {
+    overflow: hidden;
+}
+
+.front-grid .panel li::after {
+    content: '';
+    display: table;
+    clear: both;
+}
+
+/* ─── List Page Images ───────────────────────────────────────────────────── */
+.page-meetups .panel li img {
+    float: left;
+    width: 350px;
+    max-width: 45%;
+    margin: 0.2rem 1rem 0.5rem 0;
+}
+
+/* Clearfix for meetups page list items */
+.page-meetups .panel li {
+    overflow: hidden;
+}
+
+.page-meetups .panel li::after {
+    content: '';
+    display: table;
+    clear: both;
+}
+
+.page-articles .panel li img {
+    float: left;
+    width: 350px;
+    max-width: 45%;
+    margin: 0.2rem 1rem 0.5rem 0;
+}
+
+/* Clearfix for articles page list items */
+.page-articles .panel li {
+    overflow: hidden;
+}
+
+.page-articles .panel li::after {
+    content: '';
+    display: table;
+    clear: both;
+}
+
+/* ─── Detail Page ────────────────────────────────────────────────────────── */
+.meetup-detail img,
+.article-detail img {
+    max-width: 700px;
+    margin: 1.5rem auto;
+}
+
+.meetup-detail,
+.article-detail {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.page-meetups .panel,
+.page-articles .panel {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.article-detail h1 {
+    text-align: center;
+}
+
+.meetup-detail h1 {
+    text-align: center;
+}
+
+/* ─── Create Meetup Form ─────────────────────────────────────────────────── */
+.meetup-detail input:not([type="checkbox"]),
+.meetup-detail select,
+.meetup-detail textarea {
+    width: 100%;
+    padding: 0.6rem 0.8rem;
+    border-radius: 2px;
+    border: 1px solid #bbb;
+    background-color: #fff;
+    color: #1a1a1a;
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.9rem;
+    margin-top: 0.3rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.meetup-detail input:not([type="checkbox"]):focus,
+.meetup-detail select:focus,
+.meetup-detail textarea:focus {
+    outline: none;
+    border-color: #555;
+    box-shadow: 0 0 0 3px rgba(0,0,0,0.08);
+}
+
+.meetup-detail label {
+    display: block;
+    font-weight: 500;
+    font-size: 0.85rem;
+    color: #444;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-top: 0.5rem;
+}
+
+#image-clear_id {
+    display: inline;
+    width: auto;
+    vertical-align: middle;
+    margin-left: 0.5rem;
+}
+
+/* ─── Attendees ──────────────────────────────────────────────────────────── */
+.meetup-detail .attendees {
+    text-align: center;
+    margin: 1.5rem 0 1rem 0;
+}
+
+/* ─── Buttons ────────────────────────────────────────────────────────────── */
+.signup-button,
+.login-button,
+.google-login-button {
+    display: inline-block;
+    background-color: #2a2a2a;
+    color: #f0f0f0;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    padding: 0.6rem 1.6rem;
+    font-size: 0.95rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border: 2px solid #2a2a2a;
+    border-radius: 2px;
+    cursor: pointer;
+    margin-top: 0.75rem;
+    transition: all 0.2s ease;
+    text-decoration: none;
+}
+
+.signup-button:hover,
+.login-button:hover,
+.google-login-button:hover {
+    background-color: #fff;
+    color: #2a2a2a;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+}
+
+/* ─── Override panel link styles for buttons ─────────────────────────────── */
+.panel a.signup-button,
+.panel a.login-button {
+    border-bottom: 2px solid #2a2a2a !important;
+    color: #f0f0f0;
+}
+
+.panel a.signup-button:hover,
+.panel a.login-button:hover {
+    color: #2a2a2a;
+    border-bottom: 2px solid #2a2a2a !important;
+}
+
+/* ─── Button alignment inside panels ────────────────────────────────────── */
+.panel .signup-button {
+    display: block;
+    width: fit-content;
+    margin: 1.5rem auto 2rem auto;
+}
+
+/* ─── Back Button ────────────────────────────────────────────────────────── */
+.back-button {
+    display: inline-block;
+    margin-bottom: 1.5rem;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.4rem 0.9rem;
+    border: 1px solid #999 !important;
+    border-bottom: 1px solid #999 !important;
+    border-radius: 2px;
+    color: #444 !important;
+    background: #e4e4e4;
+    transition: all 0.2s ease;
+    text-decoration: none;
+}
+
+.back-button:hover {
+    background-color: #2a2a2a;
+    border-color: #2a2a2a !important;
+    border-bottom: 1px solid #2a2a2a !important;
+    color: #fff !important;
+}
+
+/* ─── Login / Signup Panels ──────────────────────────────────────────────── */
+.login-panel {
+    max-width: 450px;
+    margin: 3rem auto;
+    padding: 2.5rem;
+    background: #efefef;
+    border-radius: 2px;
+    border: 1px solid #b8b8b8;
+    border-left: 4px solid #555;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    text-align: center;
+}
+
+.login-panel h1 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: #1a1a1a;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.login-panel p {
+    font-size: 0.9rem;
+    color: #555;
+    margin-bottom: 1rem;
+}
+
+.login-panel .form-field {
+    margin-bottom: 1.25rem;
+    text-align: left;
+}
+
+.login-panel .form-field label {
+    display: block;
+    margin-bottom: 0.4rem;
+    font-weight: 500;
+    font-size: 0.85rem;
+    color: #444;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.login-panel .form-field input:not([type="checkbox"]),
+.login-panel input:not([type="checkbox"]) {
+    width: 100%;
+    padding: 0.6rem 0.8rem;
+    border-radius: 2px;
+    border: 1px solid #bbb;
+    background-color: #fff;
+    color: #1a1a1a;
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.9rem;
+    margin-top: 0.3rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.login-panel .form-field input:focus,
+.login-panel input:focus {
+    outline: none;
+    border-color: #555;
+    box-shadow: 0 0 0 3px rgba(0,0,0,0.08);
+    background-color: #fff;
+}
+
+.profile-panel h3 {
+    text-align: left;
+}
+
+.profile-panel li {
+    border-bottom: none;
+    padding-bottom: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.profile-panel {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.profile-routes {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: fit-content;
+}
+
+/* ─── Profile Photo ──────────────────────────────────────────────────────── */
+.panel .profile-photo {
+    width: 500px;
+    height: auto;
+    border-radius: 5px;
+    border: 3px solid #888;
+    display: block;
+    margin: 0 auto 1.5rem auto;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+}
+
+.panel .profile-photo-placeholder {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 3px solid #888;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem auto;
+    font-size: 5rem;
+    color: #aaa;
+}
+
+/* ─── Navbar Search Form ─────────────────────────────────────────────────── */
+.nav-search-form {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    position: absolute;
+    left: 1.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.nav-search-form input[type="text"] {
+    padding: 0.45rem 0.75rem;
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.85rem;
+    color: #1a1a1a;
+    background: #fff;
+    border: 1px solid #888;
+    border-right: none;
+    border-radius: 2px 0 0 2px;
+    outline: none;
+    width: 200px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.nav-search-form input[type="text"]:focus {
+    border-color: #555;
+    box-shadow: 0 0 0 2px rgba(255,255,255,0.1);
+}
+
+.nav-search-form button {
+    padding: 0.45rem 0.75rem;
+    background-color: #444;
+    color: #f0f0f0;
+    border: 1px solid #888;
+    border-left: none;
+    border-radius: 0 2px 2px 0;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.9rem;
+}
+
+.nav-search-form button:hover {
+    background-color: #666;
+    color: #fff;
+}
+
+/* Adjust nav-left positioning when search is present */
+.site-nav:has(.nav-search-form) .nav-left {
+    left: calc(50%);
+}
+
+/* ─── Friend Search Results ──────────────────────────────────────────────── */
+.search-results {
+    margin: 0 0 2rem 0;
+}
+.search-container {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.search-results h3 {
+    text-align: center;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #2a2a2a;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid #aaa;
+}
+
+/* ─── Riders List Container ──────────────────────────────────────────────── */
+.riders-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+/* ─── Individual Rider Card ──────────────────────────────────────────────── */
+.rider-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.2rem;
+    background: rgba(255, 255, 255, 0.4);
+    border-bottom: 1px solid #d0d0d0;
+    transition: background-color 0.2s ease;
+}
+
+.rider-card:first-child {
+    border-top: 1px solid #d0d0d0;
+}
+
+.rider-card:hover {
+    background: rgba(255, 255, 255, 0.7);
+}
+
+/* ─── Rider Info Section ─────────────────────────────────────────────────── */
+.rider-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex: 1;
+}
+
+.rider-avatar {
+    font-size: 2.5rem;
+    color: #666;
+    line-height: 1;
+}
+
+.rider-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.rider-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #2a2a2a !important;
+    text-decoration: none;
+    border-bottom: 1px solid #999 !important;
+    transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.rider-name:hover {
+    color: #000 !important;
+    border-bottom-color: #333 !important;
+}
+
+.rider-bio {
+    font-size: 0.85rem;
+    color: #555;
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* ─── Rider Actions Section ──────────────────────────────────────────────── */
+.rider-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.friend-form,
+.friend-form-inline {
+    margin: 0;
+}
+
+/* ─── Add Friend Button ──────────────────────────────────────────────────── */
+.btn-add-friend {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1.2rem;
+    background-color: #2a2a2a;
+    color: #f0f0f0;
+    border: 2px solid #2a2a2a;
+    border-radius: 2px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.btn-add-friend:hover {
+    background-color: #fff;
+    color: #2a2a2a;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+}
+
+/* ─── Friend Status Container ────────────────────────────────────────────── */
+.friend-status {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+/* ─── Friend Badge ───────────────────────────────────────────────────────── */
+.badge-friend {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.45rem 1rem;
+    background: #e4e4e4;
+    color: #2a2a2a;
+    border: 1px solid #999;
+    border-radius: 2px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+/* ─── Remove Friend Button ───────────────────────────────────────────────── */
+.btn-remove-friend {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    background: #e4e4e4;
+    color: #555;
+    border: 1px solid #999;
+    border-radius: 2px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-remove-friend:hover {
+    background: #2a2a2a;
+    color: #fff;
+    border-color: #2a2a2a;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+/* ─── No Results Message ─────────────────────────────────────────────────── */
+.no-results {
+    text-align: center;
+    padding: 2.5rem 1.5rem;
+    color: #666;
+    background: rgba(255, 255, 255, 0.3);
+    border: 1px solid #d0d0d0;
+    border-radius: 2px;
+}
+
+.no-results i {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    opacity: 0.4;
+    display: block;
+}
+
+.no-results p {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin: 0;
+}
+
+/* ─── Responsive: Navbar Search ──────────────────────────────────────────── */
+@media (max-width: 900px) {
+    .nav-search-form {
+        position: static;
+        transform: none;
+        margin: 0.5rem 0;
+        width: 100%;
+        max-width: 300px;
+    }
+
+    .nav-search-form input[type="text"] {
+        flex: 1;
+    }
+
+    .site-nav:has(.nav-search-form) .nav-left {
+        left: 50%;
+    }
+}
+
+/* ─── Responsive: Friend Search ──────────────────────────────────────────── */
+@media (max-width: 640px) {
+    .nav-search-form {
+        max-width: 100%;
+    }
+
+    .nav-search-form input[type="text"] {
+        width: 100%;
+    }
+
+    .rider-card {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1rem;
+        padding: 1rem;
+    }
+
+    .rider-info {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .rider-actions {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .btn-add-friend {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .friend-status {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .badge-friend {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .btn-remove-friend {
+        width: 100%;
+    }
+}
+
+.friends-list {
+    list-style: none;
+    padding: 0;
+}
+
+.friend-item {
+    display: flex;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.friend-item a {
+    flex-grow: 1;
+}
+
+.btn-remove-friend {
+    background: #e74c3c;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.3s;
+}
+
+.btn-remove-friend:hover {
+    background: #c0392b;
+}
+
+/* ─── Form Errors ────────────────────────────────────────────────────────── */
+.form-error {
+    color: #cc0000;
+    font-size: 0.8rem;
+    margin-top: 0.3rem;
+}
+
+/* ─── Footer ─────────────────────────────────────────────────────────────── */
+.site-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #2a2a2a;
+    color: #aaa;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 400;
+    text-align: center;
+    padding: 0.4rem 1rem;
+    border-top: 3px solid #888;
+    z-index: 1000;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.site-footer a {
+    color: #ccc;
+    text-decoration: none;
+    border-bottom: none;
+    transition: color 0.2s ease;
+}
+
+.site-footer a:hover {
+    color: #fff;
+}
+
+/* ─── Meetup Links (route & document) ───────────────────────────────────── */
+.meetup-links {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin: 1.2rem 0;
+    flex-wrap: wrap;
+}
+
+.meetup-link-button {
+    display: inline-block;
+    background-color: #e4e4e4;
+    color: #2a2a2a !important;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.45rem 1.1rem;
+    border: 1px solid #aaa !important;
+    border-bottom: 1px solid #aaa !important;
+    border-radius: 2px;
+    transition: all 0.2s ease;
+    text-decoration: none;
+}
+
+.meetup-link-button:hover {
+    background-color: #2a2a2a;
+    color: #fff !important;
+    border-color: #2a2a2a !important;
+    border-bottom-color: #2a2a2a !important;
+}
+
+/* ─── Comments (inside same panel as meetup detail) ─────────────────────── */
+.comments-section {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 2px solid #ccc;
+}
+
+.comments-section h2 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #2a2a2a;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border-bottom: 2px solid #aaa;
+    padding-bottom: 0.8rem;
+    margin-bottom: 1.2rem;
+    text-align: center;
+}
+
+.comment {
+    border-bottom: 1px solid #d8d8d8;
+    padding: 1rem 0;
+}
+
+.comment:last-of-type {
+    border-bottom: none;
+}
+
+.comment-meta {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    margin-bottom: 0.4rem;
+}
+
+.comment-meta a {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #2a2a2a !important;
+    border-bottom: none !important;
+}
+
+.comment-meta a:hover {
+    color: #000 !important;
+}
+
+.comment-date {
+    font-size: 0.8rem;
+    color: #888;
+    font-style: italic;
+}
+
+.comment-body {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #333;
+    margin-bottom: 0;
+}
+
+.no-comments {
+    color: #888;
+    font-style: italic;
+    text-align: center;
+    padding: 1rem 0;
+    margin-bottom: 0;
+}
+
+/* ─── Comment Form ───────────────────────────────────────────────────────── */
+.comment-form {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #d0d0d0;
+}
+
+.comment-form h3 {
+    text-align: left;
+    margin-bottom: 0.75rem;
+}
+
+.comment-form textarea {
+    width: 100%;
+    padding: 0.65rem 0.85rem;
+    border: 1px solid #bbb;
+    border-radius: 2px;
+    background-color: #fff;
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.95rem;
+    color: #1a1a1a;
+    resize: vertical;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.comment-form textarea:focus {
+    outline: none;
+    border-color: #555;
+    box-shadow: 0 0 0 3px rgba(0,0,0,0.08);
+}
+
+.comment-form .signup-button {
+    margin: 0.75rem 0 0 0;
+    display: inline-block;
+    width: auto;
+}
+
+/* ─── Responsive: Side-by-Side Panels ───────────────────────────────────── */
+@media (orientation: landscape), (min-width: 768px) {
+    .front-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+/* ─── Small Screens ──────────────────────────────────────────────────────── */
+@media (max-width: 600px) {
+    .nav-left, .nav-right {
+        position: static;
+        transform: none;
+        justify-content: center;
+        margin: 0.25rem 0;
+    }
+
+    .site-nav {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0.5rem 1rem;
+    }
+
+    .site-logo {
+        max-width: 220px;
+    }
+
+    .site-banner {
+        padding: 1.2rem 0;
+    }
+
+    .page-meetups .panel li img,
+    .page-articles .panel li img {
+        max-width: 100%;
+    }
+
+    /* Revert float on meetups and articles pages for small screens */
+    .page-meetups .panel li img,
+    .page-articles .panel li img {
+        float: none;
+        width: 100%;
+        margin: 0.5rem 0 0.8rem 0;
+    }
+
+    .meetup-detail img,
+    .article-detail img {
+        max-width: 100%;
+    }
+
+    .meetup-links {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    /* On small screens, revert homepage images to block so they don't squish */
+    .front-grid .panel li img {
+        float: none;
+        width: 100%;
+        max-width: 100%;
+        margin: 0.5rem 0 0.8rem 0;
+    }
+}
+
+/* ─── Large Screens ──────────────────────────────────────────────────────── */
+@media (min-width: 1024px) {
+    .panel {
+        padding: 0.8rem 1.5rem 1.5rem 1.5rem;
+    }
+
+    .panel h2 {
+        font-size: 2rem;
+        margin-top: 0;
+    }
+
+    .panel p {
+        font-size: 1rem;
+    }
+}

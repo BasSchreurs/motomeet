@@ -1,0 +1,106 @@
+{% extends "core/base.html" %}
+{% block title %}{{ meetup.title }}{% endblock %}
+{% block body_class %}page-meetup-detail{% endblock %}
+
+{% block content %}
+<section class="panel meetup-detail">
+    <a href="{% url 'meetup_list' %}" class="back-button">&larr; Terug naar Meetups</a>
+
+    <h1>{{ meetup.title }}</h1>
+
+    {% if meetup.image %}
+        <img src="{{ meetup.image.url }}" alt="{{ meetup.title }}">
+    {% endif %}
+
+    <p>
+        <strong>Wanneer:</strong>
+        {% if meetup.end_date %}
+            {{ meetup.start_date|date:"d-m-Y" }} t/m {{ meetup.end_date|date:"d-m-Y" }}
+        {% else %}
+            {{ meetup.start_date|date:"d-m-Y" }}
+        {% endif %}<br>
+        <strong>Waar:</strong> {{ meetup.location }}<br>
+        <strong>Aangemaakt door:</strong> <a href="{% url 'profile' meetup.created_by.username %}">{{ meetup.created_by.username }}</a>
+    </p>
+
+    <p>{{ meetup.description|safe }}</p>
+
+    <!-- Route & Document links -->
+    {% if meetup.route_link or meetup.document_link %}
+    <div class="meetup-links">
+        {% if meetup.route_link %}
+            <a href="{{ meetup.route_link }}" target="_blank" rel="noopener" class="meetup-link-button">🗺️ Bekijk route</a>
+        {% endif %}
+        {% if meetup.document_link %}
+            <a href="{{ meetup.document_link }}" target="_blank" rel="noopener" class="meetup-link-button">📄 Bekijk document</a>
+        {% endif %}
+    </div>
+    {% endif %}
+
+    <!-- Attendees -->
+    <p class="attendees">
+        <strong>Aanwezigen ({{ meetup.attendees.count }}):</strong>
+        {% if meetup.attendees.all %}
+            {% for user in meetup.attendees.all %}
+                <a href="{% url 'profile' user.username %}">{{ user.username }}</a>{% if not forloop.last %}, {% endif %}
+            {% endfor %}
+        {% else %}
+            Nog niemand aangemeld.
+        {% endif %}
+    </p>
+
+    <!-- Join / Leave button -->
+    {% if user.is_authenticated %}
+        {% if is_attending %}
+            <a href="{% url 'meetup_leave' meetup.slug %}" class="signup-button">Afmelden</a>
+        {% else %}
+            <a href="{% url 'meetup_join' meetup.slug %}" class="signup-button">Aanmelden</a>
+        {% endif %}
+    {% else %}
+        <p><a href="{% url 'login' %}">Log in</a> om je aan te melden.</p>
+    {% endif %}
+
+    {% if user == meetup.created_by %}
+    <div class="meetup-links">
+        <a href="{% url 'edit_meetup' meetup.slug %}" class="meetup-link-button">✏️ Bewerken</a>
+        <a href="{% url 'delete_meetup' meetup.slug %}" class="meetup-link-button">🗑️ Verwijderen</a>
+    </div>
+    {% endif %}
+
+    <!-- Comments -->
+    <div class="comments-section" id="comments-section">
+        <h2>Reacties ({{ comments.count }})</h2>
+
+        {% for comment in comments %}
+        <div class="comment">
+            <div class="comment-meta">
+                <a href="{% url 'profile' comment.author.username %}">{{ comment.author.username }}</a>
+                <span class="comment-date">{{ comment.created_at|date:"d-m-Y H:i" }}</span>
+            </div>
+            <p class="comment-body">
+                {{ comment.body }}
+                {% if user == comment.author %}
+                    <a href="{% url 'delete_comment' comment.pk %}" class="comment-delete" style="margin-left: 16px;">Verwijderen</a>
+                {% endif %}
+            </p>
+        {% empty %}
+            <p class="no-comments">Nog geen reacties. Wees de eerste!</p>
+        {% endfor %}
+
+        <!-- Comment form -->
+        <div class="comment-form">
+            {% if user.is_authenticated %}
+                <h3>Laat een reactie achter</h3>
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.body }}
+                    <button type="submit" class="signup-button">Plaatsen</button>
+                </form>
+            {% else %}
+                <p><a href="{% url 'login' %}">Log in</a> om een reactie te plaatsen.</p>
+            {% endif %}
+        </div>
+    </div>
+
+</section>
+{% endblock %}

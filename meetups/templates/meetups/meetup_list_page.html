@@ -1,0 +1,14 @@
+{% extends "core/base.html" %}
+{% load static %}
+{% block title %}Upcoming Meetups{% endblock %}
+{% block body_class %}page-meetups{% endblock %}
+{% block content %}
+    <h1></h1>
+    {% include "meetups/meetup_list.html" with meetups=meetups %}
+</section>
+{% endblock %}
+
+
+
+
+

@@ -1,0 +1,9 @@
+{% extends "core/base.html" %}
+{% load static %}
+{% block title %}Motorcycle News{% endblock %}
+{% block body_class %}page-articles{% endblock %}
+{% block content %}
+    <h1></h1>
+    {% include "news/article_list.html" with articles=articles %}
+</section>
+{% endblock %}

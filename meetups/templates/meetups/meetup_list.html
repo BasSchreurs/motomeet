@@ -1,0 +1,39 @@
+{% load static %}
+<section class="panel">
+    <h2>{% block panel_title %}Moto Meetups{% endblock %}</h2>
+
+    {% if meetups %}
+        <ul>
+            {% for meetup in meetups %}
+                <li>
+                    {% if meetup.image %}
+                        <a href="{% url 'meetup_detail' meetup.slug %}">
+                            <img src="{{ meetup.image.url }}" alt="{{ meetup.title }}">
+                        </a>
+                    {% endif %}
+
+                    <h3>
+                        <a href="{% url 'meetup_detail' meetup.slug %}">
+                            {{ meetup.title }}
+                        </a>
+                    </h3>
+
+                    <p>
+                        <strong>Wanneer:</strong>
+                        {% if meetup.end_date %}
+                            {{ meetup.start_date|date:"d-m-Y" }} t/m {{ meetup.end_date|date:"d-m-Y" }}
+                        {% else %}
+                            {{ meetup.start_date|date:"d-m-Y H:i" }}
+                        {% endif %}<br>
+                        <strong>Waar:</strong> {{ meetup.location }}<br>
+                        <strong>Aangemaakt door:</strong> <a href="{% url 'profile' meetup.created_by.username %}">{{ meetup.created_by.username }}</a><br>
+                        {{ meetup.description|truncatewords_html:60|safe }}
+                        <p style="text-align: right;"><a href="{% url 'meetup_detail' meetup.slug %}">Lees meer</a></p>
+                    </p>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Geen meetups gepland.</p>
+    {% endif %}
+</section>

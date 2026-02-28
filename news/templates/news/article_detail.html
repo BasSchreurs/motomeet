@@ -1,0 +1,14 @@
+{% extends "core/base.html" %}
+{% block title %}{{ article.title }}{% endblock %}
+
+{% block content %}
+<section class="panel article-detail">
+    <a href="{% url 'article_list' %}" class="back-button">&larr; Back to News</a>
+
+    <h1>{{ article.title }}</h1>
+    {% if article.image %}
+        <img src="{{ article.image.url }}" alt="{{ article.title }}">
+    {% endif %}
+    <p>{{ article.content|safe }}</p>
+</section>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block title %}Inloggen{% endblock %}
+
+{% block content %}
+<section class="login-panel">
+    <h1>Inloggen</h1>
+    {% if form.non_field_errors %}
+    <p class="field-error">{{ form.non_field_errors }}</p>
+    {% endif %}
+
+    <!-- Normal login form -->
+    <form method="POST" action="{% url 'login' %}">
+        {% csrf_token %}
+        <div class="form-field">
+            {{ form.login.label_tag }}<br>
+            {{ form.login }}
+        </div>
+        <div class="form-field">
+            {{ form.password.label_tag }}<br>
+            {{ form.password }}
+        </div>
+        <button type="submit" class="login-button">Inloggen</button>
+    </form>
+
+    <p><br></p>
+
+    <!-- Official Google button -->
+<script src="https://accounts.google.com/gsi/client"></script>
+<div id="google-signin-btn"></div>
+<script>
+    window.onload = function () {
+        google.accounts.id.initialize({
+            client_id: "426091807008-64gp6h66g97icjg5s9918afa48neh81t.apps.googleusercontent.com",
+            login_uri: "http://127.0.0.1:8000/accounts/google-login/",
+            ux_mode: "redirect",
+        });
+        google.accounts.id.renderButton(
+            document.getElementById("google-signin-btn"),
+            { theme: "outline", size: "large", text: "signin_with" }
+        );
+    };
+</script>
+
+    <p>Heb je nog geen account? <a href="{% url 'signup' %}">Registreren</a></p>
+</section>
+{% endblock %}

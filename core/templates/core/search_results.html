@@ -1,0 +1,91 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block title %}Search Results - MotoMeet{% endblock %}
+
+{% block content %}
+<div class="site-banner" style="background-image: url('{% static 'images/banner.png' %}');">
+    <img src="{% static 'images/motomeetlogo.png' %}" alt="MotoMeet Logo" class="site-logo">
+</div>
+
+<section class="panel search-results search-container">
+    {% if query %}
+        <h3>Zoekresultaten voor "{{ query }}"</h3>
+        
+        {% if search_type == "users" or search_type == "all" %}
+            <h4>Gebruikers ({{ users.count }})</h4>
+            <div class="riders-list">
+                {% for user in users %}
+                    <div class="rider-card">
+                        <div class="rider-info">
+                            <div class="rider-avatar">
+                                <i class="fas fa-user-circle"></i>
+                            </div>
+                            <div class="rider-details">
+                                <a href="{% url 'profile' user.username %}" class="rider-name">{{ user.username }}</a>
+                                {% if user.profiel.bio %}
+                                    <p class="rider-bio">{{ user.profiel.bio|truncatewords:15 }}</p>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        {% if request.user.is_authenticated and user != request.user %}
+                            <div class="rider-actions">
+                                {% if user not in request.user.profiel.vrienden.all %}
+                                    <form method="post" action="{% url 'voeg_vriend_toe' user.username %}" class="friend-form">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn-add-friend">
+                                            <i class="fas fa-user-plus"></i> Toevoegen
+                                        </button>
+                                    </form>
+                                {% else %}
+                                    <div class="friend-status">
+                                        <span class="badge-friend"><i class="fas fa-check"></i> Vrienden</span>
+                                        <form method="post" action="{% url 'verwijder_vriend' user.username %}" class="friend-form-inline">
+                                            {% csrf_token %}
+                                            <button type="submit" class="btn-remove-friend" title="Verwijder vriend">
+                                                <i class="fas fa-user-times"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                    </div>
+                {% empty %}
+                    <div class="no-results">
+                        <i class="fas fa-search"></i>
+                        <p>Geen gebruikers gevonden "{{ query }}"</p>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <!-- Add sections for articles and meetups if search_type is "all" -->
+        {% if search_type == "articles" or search_type == "all" %}
+            {% if articles %}
+                <h4>Articles ({{ articles.count }})</h4>
+                {% include "news/article_list.html" with articles=articles %}
+            {% endif %}
+        {% endif %}
+
+        {% if search_type == "meetups" or search_type == "all" %}
+            {% if meetups %}
+                <h4>Meetups ({{ meetups.count }})</h4>
+                {% include "meetups/meetup_list.html" with meetups=meetups %}
+            {% endif %}
+        {% endif %}
+
+    {% else %}
+        <div class="no-results">
+            <i class="fas fa-search"></i>
+            <p>Geen zoekterm</p>
+        </div>
+    {% endif %}
+
+    <a href="{% url 'home' %}" class="btn-back">
+        <i class="fas fa-arrow-left"></i> Home
+    </a>
+</section>
+
+{% endblock %}

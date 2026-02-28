@@ -1,0 +1,88 @@
+{% extends "core/base.html" %}
+{% block title %}{{ profile_user.username }}{% endblock %}
+
+{% block content %}
+<section class="panel profile-panel">
+
+    <h2>{{ profile_user.username }}</h2>
+
+    {% if profiel.profiel_foto %}
+    <img src="{{ profiel.profiel_foto.url }}" alt="{{ profile_user.username }}" class="profile-photo">
+    {% else %}
+    <div class="profile-photo-placeholder"><i class="fas fa-user-circle"></i></div>
+    {% endif %}
+
+    <div class="profile-info">
+        <p><strong>Woonplaats:</strong> {{ profiel.woonplaats|default:"Onbekend" }}</p>
+        {% if profiel.leeftijd %}
+        <p><strong>Leeftijd:</strong> {{ profiel.leeftijd }} jaar</p>
+        {% endif %}
+        <p><strong>Motor:</strong> {{ profiel.motor_model|default:"Onbekend" }}</p> 
+    </div>
+
+    <!-- Social media -->
+    {% if profiel.sociale_media %}
+    <div class="profile-socials">
+        <h3><br>Sociale Media</h3>
+        {% for name, url, icon in profiel.sociale_media %}
+            <a href="{{ url }}" target="_blank" rel="noopener" class="meetup-link-button">
+                <i class="{{ icon }}"></i> {{ name }}
+            </a>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- Favourite routes -->
+    {% if profiel.favoriete_routes %}
+    <div class="profile-routes">
+        <h3><br>Favoriete Routes</h3>
+        {% for label, url in profiel.favoriete_routes %}
+            <a href="{{ url }}" target="_blank" rel="noopener" class="meetup-link-button">🗺️ {{ label }}</a>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <h3><br>Komende meetups</h3>
+    {% if meetups %}
+        <ul>
+            {% for meetup in meetups %}
+                <li>
+                    <a href="{% url 'meetup_detail' meetup.slug %}">{{ meetup.title }}</a>
+                    — {{ meetup.start_date|date:"d-m-Y" }} — {{ meetup.location }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Geen komende meetups.</p>
+    {% endif %}
+
+    {% if request.user == profile_user %}
+        <a href="{% url 'complete_profile' %}" class="signup-button">Profiel bewerken</a>
+    {% endif %}
+
+    {% if request.user == profile_user %}
+        <div class="profile-connections">
+            <h3><br>Mijn vrienden</h3>
+
+            <ul class="friends-list">
+            {% for user in request.user.profiel.vrienden.all %}
+                <li class="friend-item">
+                    <a href="{% url 'profile' user.username %}">
+                        {{ user.username }}
+                    </a>
+                    <form method="post" action="{% url 'verwijder_vriend' user.username %}" style="display:inline; margin-left: 10px;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn-remove-friend" title="Verwijder vriend">
+                            <i class="fas fa-user-times"></i>
+                        </button>
+                    </form>
+                </li>
+            {% empty %}
+                <li>Nog geen vrienden</li>
+            {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+</section>
+{% endblock %}
