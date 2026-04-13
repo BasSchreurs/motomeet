@@ -109,3 +109,5 @@ SOCIALACCOUNT_PROVIDERS = {
 if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
     DEFAULT_FROM_EMAIL = 'webmaster@localhost'
+
+CSRF_TRUSTED_ORIGINS = ['https://motomeet.nl', 'https://www.motomeet.nl']
