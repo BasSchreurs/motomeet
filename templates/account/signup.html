@@ -30,8 +30,8 @@
 <script>
     window.onload = function () {
         google.accounts.id.initialize({
-            client_id: "426091807008-64gp6h66g97icjg5s9918afa48neh81t.apps.googleusercontent.com",
-            login_uri: "http://127.0.0.1:8000/accounts/google-login/",
+            client_id: "{{ google_client_id }}",
+            login_uri: "{{ login_uri }}",
             ux_mode: "redirect",
         });
         google.accounts.id.renderButton(

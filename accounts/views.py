@@ -47,7 +47,7 @@ def signup(request):
     else:
         form = CustomSignUpForm()
 
-    return render(request, "accounts/account_signup.html", {"form": form, "login_uri": login_uri})
+    return render(request, "accounts/account_signup.html", {"form": form, "login_uri": login_uri, "google_client_id": GOOGLE_CLIENT_ID})
 
 
 # ----------------------------
@@ -64,7 +64,7 @@ def login_view(request):
         auth_login(request, user, backend='django.contrib.auth.backends.ModelBackend')
         return redirect("home")
 
-    return render(request, "accounts/account_login.html", {"form": form, "login_uri": login_uri})
+    return render(request, "accounts/account_login.html", {"form": form, "login_uri": login_uri, "google_client_id": GOOGLE_CLIENT_ID})
 
 
 # ----------------------------
