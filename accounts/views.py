@@ -12,8 +12,9 @@ from django.core.exceptions import ValidationError
 import jwt  # PyJWT for Google ID token
 
 # Hardcoded Google Client ID and local login URI
-GOOGLE_CLIENT_ID = "426091807008-64gp6h66g97icjg5s9918afa48neh81t.apps.googleusercontent.com"
-GOOGLE_LOGIN_URI = "http://127.0.0.1:8000/accounts/google-login/"  # must match Authorized redirect URI in Google Console
+import os
+GOOGLE_CLIENT_ID = os.environ.get('GOOGLE_CLIENT_ID')
+GOOGLE_LOGIN_URI = "https://motomeet.nl/accounts/google-login/" # must match Authorized redirect URI in Google Console
 
 
 # ----------------------------
